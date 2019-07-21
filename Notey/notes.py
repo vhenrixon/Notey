@@ -4,15 +4,10 @@ import sys
 from pyfiglet import Figlet
 
 
-'''
+"""
 Author: Vhenrixon 
 What is this: A simple a CLI for a generating a template note file
-
-TODO: 
-[ ] Clean up 
-[ ] Table of contents feature 
-[ ] README
-'''
+"""
 BOLD = '\033[1m'
 
 def generate_file(dispatch, flags):
@@ -40,7 +35,7 @@ def generate_help(dispatch):
 
 dispatch = {
     # The dispatch dictionary holds the command has the value and then attributes of the command has values 
-    '''
+    """
     EXAMPLE:
     COMMAND : {
         "keys": [array of the alternative keys that the command can use],
@@ -48,7 +43,7 @@ dispatch = {
         "function": points to the function that should fire because the command was run,
         "discription": A discription of the command that will be used inside of the help menu
     }
-    '''
+    """
 
     "generate": {
         "keys": ["g", "gen"],
