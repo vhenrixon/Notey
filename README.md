@@ -1,2 +1,9 @@
-# Notes
-A CLI that auto generates a note file 
+# Notey
+
+## What is Notey
+
+---
+
+Notey is a small command line interface(CLI) tool that allows you to create markdown files for note taking
+
+
