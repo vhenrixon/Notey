@@ -17,8 +17,8 @@ def generate_file(dispatch, flags):
         if "-n" or "-name" in flag:
             name = flag["-n"] or flag["-name"]
             with open(name+".md", "w") as f:
-                f.write(f"# {name} \n --- ")
-            return f"Created {name} file!"
+                f.write(f"# {name}\n## Table of Contents\n- [{name}](#{name})\n---\n")
+            return f"Created the {name} file!"
     else:
         return "The Generate command needs flags"
 
@@ -33,8 +33,43 @@ def generate_help(dispatch):
     return help_text
 
 
-dispatch = {
-    # The dispatch dictionary holds the command has the value and then attributes of the command has values 
+def update_table(dispatch, flags):
+    # Updates the table of the contents inside of the file based on the heading of the file
+    if flags is not None:
+        flag = _flag_dict(flags)
+        if "-n" or "-name" or "-file" or "-f" in flag: # checking flags
+            file_name = flag['-n'] or flag["-name"] or flag['-file'] or flag["-f"]
+            table_items = []
+            new_table = ""
+            old_file = []
+            with open(file_name+".md", "r") as file: # Collect the new sections
+                read_file = file.readlines()
+                old_file = read_file
+                file_size = len(read_file)
+                for i, line in enumerate(read_file):
+                    if line[0:2] == "##":
+                        name = line[3:len(line)]
+                        if line[len(line)-1] == "\n": 
+                          name = line[3:len(line)-1] 
+                        second_name = name.replace(" ", "-")
+                        table_items.append(f"\t- [{name}](##{second_name})\n")
+            start = old_file.index(f'- [{file_name}](#{file_name})\n')
+            end = old_file.index('---\n')
+            inserts = 0
+            with open(file_name+".md","w") as new_file: # Over write the file and added the old file with the new table contents
+                for section in old_file[start+1: end]: 
+                    old_file.remove(section)
+                for i, section in enumerate(table_items):
+                    old_file.insert(start+i+1, section)
+                    inserts += 1 
+                new_file.writelines(old_file)
+            return f"Updated {file_name} and now it has {inserts} sections!"
+            
+            
+
+                         
+
+# The dispatch dictionary holds the command has the value and then attributes of the command has values
     """
     EXAMPLE:
     COMMAND : {
@@ -45,11 +80,19 @@ dispatch = {
     }
     """
 
+
+dispatch = {
     "generate": {
         "keys": ["g", "gen"],
         "flags": ['-n', '-name', ],
         "function": generate_file,
         "discription": "Generates the mark down for note taking",
+    },
+    "update": {
+        "keys": ["u", "up"],
+        "flags": ["-n", "-name", "-file", "-f"],
+        "function": update_table,
+        "discription": "Updates a notes file table contents based on the text in the file \n\t I.e ## Unit 2 would be added to the table in its corret position"
     },
     "--help": {
         "keys": ["h"],
