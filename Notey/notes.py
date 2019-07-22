@@ -40,12 +40,10 @@ def update_table(dispatch, flags):
         if "-n" or "-name" or "-file" or "-f" in flag: # checking flags
             file_name = flag['-n'] or flag["-name"] or flag['-file'] or flag["-f"]
             table_items = []
-            new_table = ""
             old_file = []
             with open(file_name+".md", "r") as file: # Collect the new sections
                 read_file = file.readlines()
                 old_file = read_file
-                file_size = len(read_file)
                 for i, line in enumerate(read_file):
                     if line[0:2] == "##":
                         name = line[3:len(line)]
