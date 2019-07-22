@@ -7,7 +7,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name="Notey",
-    version="0.0.1",
+    version="0.1.0",
     packages=find_packages(),
     # metadata to display on PyPI
     author="Vhenrixon",
@@ -19,6 +19,9 @@ setup(
             'note = Notey.notes:main'
         ]
     },
+    install_requires=[
+        'pyfiglet',
+    ],
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
