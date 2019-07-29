@@ -26,7 +26,7 @@ def generate_file(dispatch, flags):
 def generate_help(dispatch):
     # generates a help menu from the info inside of the dispatch
     f = Figlet(font='slant')
-    print(f.renderText('Notes-CLI'))
+    print(f.renderText('Notey'))
     help_text = f"\n{BOLD}Help"
     for commands in dispatch:
         help_text += f"\n { commands } \n\t Discription: {dispatch[commands]['discription']} \n\t Flags: { dispatch[commands]['flags']}"
